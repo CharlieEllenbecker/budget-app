@@ -17,7 +17,6 @@ const expenseSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        required: true,
         default: Date.now
     },
     note: {
@@ -29,7 +28,5 @@ const expenseSchema = new mongoose.Schema({
     versionKey: false
 });
 
-const Expense = mongoose.model("Expense", expenseSchema);
-
-module.exports.Expense = Expense;
-module.exports.expenseSchema = expenseSchema;
+export const Expense = mongoose.model("Expense", expenseSchema);
+export { expenseSchema };

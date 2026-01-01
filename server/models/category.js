@@ -11,11 +11,14 @@ const categorySchema = new mongoose.Schema({
         required: true,
         min: 0
     },
+    note: {
+        type: String,
+        trim: true
+    }
+}, {
     _id: false, // important: prevents automatic ObjectId for each category
     versionKey: false
 });
 
-const Category = mongoose.model("Category", categorySchema);
-
-module.exports.categorySchema = categorySchema;
-module.exports.Category = Category;
+export const Category = mongoose.model("Category", categorySchema);
+export { categorySchema };

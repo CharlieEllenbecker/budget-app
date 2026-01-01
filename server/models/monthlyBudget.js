@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { categorySchema } from "./category.js";
 
-const budgetSchema = new mongoose.Schema({
+const monthlyBudgetSchema = new mongoose.Schema({
     month: {
         type: String, // "YYYY-MM"
         required: true
@@ -23,7 +23,5 @@ const budgetSchema = new mongoose.Schema({
     }
 );
 
-const MonthlyBudget = mongoose.model("MonthlyBudget", budgetSchema);
-
-module.exports.MonthlyBudget = MonthlyBudget;
-module.exports.budgetSchema = budgetSchema;
+export const MonthlyBudget = mongoose.model("MonthlyBudget", monthlyBudgetSchema);
+export { monthlyBudgetSchema };
