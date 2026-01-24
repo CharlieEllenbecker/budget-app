@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { categorySchema } from "./category.js";
+import { expenseSchema } from "./expense.js";
 import Joi from "joi";
 
 export const MonthlyBudget = mongoose.model("MonthlyBudget", new mongoose.Schema({
@@ -17,6 +18,16 @@ export const MonthlyBudget = mongoose.model("MonthlyBudget", new mongoose.Schema
         type: [categorySchema],
         required: true,
         default: []
+    },
+    expenses: {
+        type: [expenseSchema],
+        required: true,
+        default: []
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: false
     }
 },
     {
@@ -25,7 +36,7 @@ export const MonthlyBudget = mongoose.model("MonthlyBudget", new mongoose.Schema
     }
 ));
 
-export function validateMonthlyBudget(monthlyBudget) {
+export function validate(monthlyBudget) {
     const schema = Joi.object({
         month: Joi.string().pattern(/^\d{4}-(0[1-9]|1[0-2])$/).required(),
         income: Joi.number().min(0).required(),
@@ -33,7 +44,14 @@ export function validateMonthlyBudget(monthlyBudget) {
             name: Joi.string().trim().required(),
             budget: Joi.number().min(0).required(),
             note: Joi.string().trim().allow('', null)
-        })).required()
+        })).required(),
+        expenses: Joi.array().items(Joi.object({
+            category: Joi.string().minLength(1).maxLength(50).trim().required(),
+            amount: Joi.number().min(0).required(),
+            date: Joi.date(),
+            note: Joi.string().maxLength(255).trim().allow('', null)
+        })).required(),
+        userId: Joi.objectId()
     });
 
     return schema.validate(monthlyBudget);
