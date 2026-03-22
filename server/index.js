@@ -1,10 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { setupRoutes } from './startup/routes.js';
+import { validate } from './startup/validate.js';
 const app = express();
 
 // Routes
 setupRoutes(app);
+
+// ObjectId Validation
+validate();
 
 // Database
 mongoose

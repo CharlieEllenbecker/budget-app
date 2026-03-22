@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { categorySchema } from "./category.js";
-import { expenseSchema } from "./expense.js";
+import { categorySchema } from "./Category.js";
+import { expenseSchema } from "./Expense.js";
 import Joi from "joi";
 
 export const MonthlyBudget = mongoose.model("MonthlyBudget", new mongoose.Schema({
@@ -46,10 +46,10 @@ export function validate(monthlyBudget) {
             note: Joi.string().trim().allow('', null)
         })).required(),
         expenses: Joi.array().items(Joi.object({
-            category: Joi.string().minLength(1).maxLength(50).trim().required(),
+            category: Joi.string().min(1).max(50).trim().required(),
             amount: Joi.number().min(0).required(),
             date: Joi.date(),
-            note: Joi.string().maxLength(255).trim().allow('', null)
+            note: Joi.string().max(255).trim().allow('', null)
         })).required(),
         userId: Joi.objectId()
     });

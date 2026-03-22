@@ -33,10 +33,10 @@ const expenseSchema = new mongoose.Schema({
 function validate(expense) {
     const schema = Joi.object({
         month: Joi.string().pattern(/^\d{4}-(0[1-9]|1[0-2])$/).required(),
-        category: Joi.string().minLength(1).maxLength(50).trim().required(),
+        category: Joi.string().min(1).max(50).trim().required(),
         amount: Joi.number().min(0).required(),
         date: Joi.date(),
-        note: Joi.string().maxLength(255).trim().allow('', null)
+        note: Joi.string().max(255).trim().allow('', null)
     });
 
     return schema.validate(expense);

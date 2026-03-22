@@ -1,6 +1,6 @@
 import express from 'express';
 import _ from 'lodash';
-import { MonthlyBudget } from '../models/monthlybudget.js';
+import { MonthlyBudget, validate } from '../models/MonthlyBudget.js';
 const router = express.Router();
 
 // GET /api/monthly-budgets

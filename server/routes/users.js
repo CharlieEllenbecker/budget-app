@@ -1,6 +1,6 @@
 import express from 'express';
 import _ from 'lodash';
-import { User, validate } from '../models/user.js';
+import { User, validate } from '../models/User.js';
 const router = express.Router();
 
 // POST /api/users

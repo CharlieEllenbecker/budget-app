@@ -1,5 +1,6 @@
 import express from 'express';
-import { Expense } from '../models/expense.js';
+import _ from 'lodash';
+import { Expense, validate } from '../models/Expense.js';
 const router = express.Router();
 
 // GET /api/expenses
@@ -13,9 +14,10 @@ router.post('/', express.json(), async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const { month, category, amount, date, note } = req.body;
-    const expense = new Expense({ month, category, amount, date, note });
-    await expense.save();
+    let expense = await new Expense({
+        ..._.pick(req.body, ['month', 'category', 'amount', 'date', 'note'])
+    }).save();
+
     return res.status(201).send(expense);
 });
 

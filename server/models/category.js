@@ -28,9 +28,9 @@ const categorySchema = new mongoose.Schema({
 
 function validate(category) {
     const schema = Joi.object({
-        name: Joi.string().minLength(1).maxLength(50).trim().required(),
+        name: Joi.string().min(1).max(50).trim().required(),
         budget: Joi.number().min(0).required(),
-        note: Joi.string().maxLength(255).trim().allow('', null)
+        note: Joi.string().max(255).trim().allow('', null)
     });
 
     return schema.validate(category);
